@@ -52,8 +52,17 @@ if __name__ == "__main__":
         config_path
     ).datasets.flickr30k.build_info.images.storage
 
+    print('storage_dir:', storage_dir)
+
     storage_dir = Path(get_cache_path(storage_dir))
     download_dir = storage_dir.parent / "download"
+    
+    storage_dir = Path('/nfshomes/vla/scratch/.cache/lavis/flickr30k/images')
+    download_dir = Path('/nfshomes/vla/scratch/.cache/lavis/flickr30k/download')
+    
+    print('storage_dir:', storage_dir)
+    print('download_dir:', download_dir)
+    
 
     if storage_dir.exists():
         print(f"Dataset already exists at {storage_dir}. Aborting.")

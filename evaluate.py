@@ -77,6 +77,9 @@ def main():
     setup_logger()
 
     cfg.pretty_print()
+    
+    # import sys
+    # sys.exit(1)
 
     task = tasks.setup_task(cfg)
     datasets = task.build_datasets(cfg)

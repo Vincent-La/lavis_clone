@@ -7,4 +7,5 @@ env:
   # For default users
   # cache_root: "cache"
   # For internal use with persistent storage
-  cache_root: "/export/home/.cache/lavis"
+  # NOTE: @vla changed this
+  cache_root: "/fs/nexus-scratch/vla/.cache"

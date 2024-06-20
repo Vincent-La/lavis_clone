@@ -114,6 +114,8 @@ class BaseDatasetBuilder:
         splits = anns.keys()
 
         cache_root = registry.get_path("cache_root")
+        print(f'CACHE_ROOT:{cache_root}')
+        # cache_root = '/fs/nexus-scratch/vla/'
 
         for split in splits:
             info = anns[split]
@@ -132,6 +134,7 @@ class BaseDatasetBuilder:
                 if not os.path.isabs(storage_path):
                     storage_path = os.path.join(cache_root, storage_path)
 
+                print(f"STORAGE_PATH:{storage_path}")
                 dirname = os.path.dirname(storage_path)
                 if not os.path.exists(dirname):
                     os.makedirs(dirname)
