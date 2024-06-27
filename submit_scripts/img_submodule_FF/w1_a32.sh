@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=blip2_flickr_baseline                     # sets the job name
-#SBATCH --output=blip2_flickr_baseline.%j                    # indicates a file to redirect STDOUT to; %j is the jobid. If set, must be set to a file instead of a directory or else submission will fail.
-#SBATCH --error=blip2_flickr_baseline.%j                     # indicates a file to redirect STDERR to; %j is the jobid. If set, must be set to a file instead of a directory or else submission will fail.
+#SBATCH --job-name=img_submodule_w1_a32                       # sets the job name
+#SBATCH --output=img_submodule_w1_a32.%j                    # indicates a file to redirect STDOUT to; %j is the jobid. If set, must be set to a file instead of a directory or else submission will fail.
+#SBATCH --error=img_submodule_w1_a32.%j                     # indicates a file to redirect STDERR to; %j is the jobid. If set, must be set to a file instead of a directory or else submission will fail.
 #SBATCH --time=20:00:00                                      # how long you would like your job to run; format=hh:mm:ss
 
 #SBATCH --partition=vulcan-scavenger
@@ -25,7 +25,9 @@ micromamba activate LAVIS
 
 python -m torch.distributed.run \
        --nproc_per_node=8 evaluate.py \
-       --cfg-path ret_flickr_eval.yaml
+       --cfg-path ret_flickr_eval.yaml \
+       --img-submodule-FF-weight_bits 1 \
+       --img-submodule-FF-activation_bits 32
 
 wait                                                            # wait for any background processes to complete
 
