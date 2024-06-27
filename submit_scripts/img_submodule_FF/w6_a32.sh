@@ -6,9 +6,9 @@
 #SBATCH --time=20:00:00                                      # how long you would like your job to run; format=hh:mm:ss
 
 #SBATCH --partition=vulcan-scavenger
-#SBATCH --qos=vulcan-scavenger                                  # set QOS, this will determine what resources can be requested
+#SBATCH --qos=vulcan-scavenger                                # set QOS, this will determine what resources can be requested
 #SBATCH --account=vulcan-abhinav
-#SBATCH --gres=gpu:a5000:8
+#SBATCH --gres=gpu:rtxa5000:8
 
 #SBATCH --nodes=1                                               # number of nodes to allocate for your job
 #SBATCH --ntasks=1                                              
