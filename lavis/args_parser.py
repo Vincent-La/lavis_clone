@@ -166,7 +166,7 @@ def parse_args():
     
     args_dict = vars(args)
     
-    # ensure groups of settings are all defined
+    # TODO: ensure groups of settings are all defined
     if None in [args_dict['visual_encoder_block_modules'],
                 args_dict['visual_encoder_block_indices'], 
                 args_dict['visual_encoder_block_weight_bits']]:
