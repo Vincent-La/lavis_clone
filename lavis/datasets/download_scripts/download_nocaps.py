@@ -82,6 +82,11 @@ if __name__ == "__main__":
 
     storage_dir = OmegaConf.load(config_path).datasets.nocaps.build_info.images.storage
     storage_dir = get_cache_path(storage_dir)
+    
+    # NOTE:HARDCODE OVERRIDE STORAGE_DIR
+    from pathlib import Path~
+    storage_dir = Path('/nfshomes/vla/scratch/.cache/lavis/nocaps')
+    
     # make sure the storage dir exists
     os.makedirs(storage_dir, exist_ok=True)
     print("Storage dir:", storage_dir)

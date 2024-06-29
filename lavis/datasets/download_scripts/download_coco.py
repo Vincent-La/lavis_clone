@@ -45,6 +45,12 @@ if __name__ == "__main__":
         print(f"Dataset already exists at {storage_dir}. Aborting.")
         exit(0)
 
+    storage_dir = Path('/nfshomes/vla/scratch/.cache/lavis/coco')
+    download_dir = Path('/nfshomes/vla/scratch/.cache/lavis/download')
+    
+    print('storage_dir:', storage_dir)
+    print('download_dir:', download_dir)
+    
     try:
         for k, v in DATA_URL.items():
             print("Downloading {} to {}".format(v, k))
