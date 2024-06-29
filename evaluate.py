@@ -30,30 +30,33 @@ from lavis.runners.runner_base import RunnerBase
 from lavis.tasks import *
 from lavis.layers.nbitlineardynamic import NBitLinearDynamic
 
+# @vla: custom parse options and quantize function
+from lavis.args_parser import parse_args
+from lavis.quantize import *
 
-def parse_args():
-    parser = argparse.ArgumentParser(description="Training")
+# def parse_args():
+#     parser = argparse.ArgumentParser(description="Training")
 
-    parser.add_argument("--cfg-path", required=True, help="path to configuration file.")
-    parser.add_argument(
-        "--options",
-        nargs="+",
-        help="override some settings in the used config, the key-value pair "
-        "in xxx=yyy format will be merged into config file (deprecate), "
-        "change to --cfg-options instead.",
-    )
+#     parser.add_argument("--cfg-path", required=True, help="path to configuration file.")
+#     parser.add_argument(
+#         "--options",
+#         nargs="+",
+#         help="override some settings in the used config, the key-value pair "
+#         "in xxx=yyy format will be merged into config file (deprecate), "
+#         "change to --cfg-options instead.",
+#     )
     
-    parser.add_argument('--img-submodule-FF-weight_bits', required = False, default = None, type = int)
-    parser.add_argument('--img-submodule-FF-activation_bits', required = False, default = None, type = int)
+#     parser.add_argument('--img-submodule-FF-weight_bits', required = False, default = None, type = int)
+#     parser.add_argument('--img-submodule-FF-activation_bits', required = False, default = None, type = int)
     
-    parser.add_argument('--text-submodule-FF-weight_bits', required = False, default = None, type = int)
-    parser.add_argument('--text-submodule-FF-activation_bits', required = False, default = None, type = int)
+#     parser.add_argument('--text-submodule-FF-weight_bits', required = False, default = None, type = int)
+#     parser.add_argument('--text-submodule-FF-activation_bits', required = False, default = None, type = int)
 
-    args = parser.parse_args()
-    # if 'LOCAL_RANK' not in os.environ:
-    #     os.environ['LOCAL_RANK'] = str(args.local_rank)
+#     args = parser.parse_args()
+#     # if 'LOCAL_RANK' not in os.environ:
+#     #     os.environ['LOCAL_RANK'] = str(args.local_rank)
 
-    return args
+#     return args
 
 
 def setup_seeds(config):
@@ -74,7 +77,8 @@ def main():
     # set before init_distributed_mode() to ensure the same job_id shared across all ranks.
     job_id = now()
     
-    cfg = Config(parse_args())
+    args = parse_args()
+    cfg = Config(args)
   
     init_distributed_mode(cfg.run_cfg)
 
@@ -89,46 +93,47 @@ def main():
     datasets = task.build_datasets(cfg)
     model = task.build_model(cfg)
 
+    # APPLY QUANTIZATION CONFIG
+    quantize(model, args)
     
-    args = vars(cfg.args)
     
-    # print(args)
-    print('cfg weight bits:', args['img_submodule_FF_weight_bits'])
-    print('cfg act bits:', args['img_submodule_FF_activation_bits'])
+    # # print(args)
+    # print('cfg weight bits:', args['img_submodule_FF_weight_bits'])
+    # print('cfg act bits:', args['img_submodule_FF_activation_bits'])
     
-    # Quantize Q-former Image sub-module if specified
-    if args['img_submodule_FF_weight_bits'] != None and args['img_submodule_FF_activation_bits'] != None:
+    # # Quantize Q-former Image sub-module if specified
+    # if args['img_submodule_FF_weight_bits'] != None and args['img_submodule_FF_activation_bits'] != None:
     
-        Q_layer = NBitLinearDynamic(model.vision_proj.in_features, 
-                                    model.vision_proj.out_features, 
-                                    bias=True,
-                                    weight_bits = args['img_submodule_FF_weight_bits'],
-                                    activation_bits = args['img_submodule_FF_activation_bits'])
+    #     Q_layer = NBitLinearDynamic(model.vision_proj.in_features, 
+    #                                 model.vision_proj.out_features, 
+    #                                 bias=True,
+    #                                 weight_bits = args['img_submodule_FF_weight_bits'],
+    #                                 activation_bits = args['img_submodule_FF_activation_bits'])
 
-        # copy over weights
-        with torch.no_grad():
-            Q_layer.weight.copy_(model.vision_proj.weight)
-            Q_layer.bias.copy_(model.vision_proj.bias)
-
-        
-        model.vision_proj = Q_layer
-        
-    # Quantize Q-former Text sub-module if specified
-    if args['text_submodule_FF_weight_bits'] != None and args['text_submodule_FF_activation_bits'] != None:
-    
-        Q_layer = NBitLinearDynamic(model.text_proj.in_features, 
-                                    model.text_proj.out_features, 
-                                    bias=True,
-                                    weight_bits = args['text_submodule_FF_weight_bits'],
-                                    activation_bits = args['text_submodule_FF_activation_bits'])
-
-        # copy over weights
-        with torch.no_grad():
-            Q_layer.weight.copy_(model.text_proj.weight)
-            Q_layer.bias.copy_(model.text_proj.bias)
+    #     # copy over weights
+    #     with torch.no_grad():
+    #         Q_layer.weight.copy_(model.vision_proj.weight)
+    #         Q_layer.bias.copy_(model.vision_proj.bias)
 
         
-        model.text_proj = Q_layer
+    #     model.vision_proj = Q_layer
+        
+    # # Quantize Q-former Text sub-module if specified
+    # if args['text_submodule_FF_weight_bits'] != None and args['text_submodule_FF_activation_bits'] != None:
+    
+    #     Q_layer = NBitLinearDynamic(model.text_proj.in_features, 
+    #                                 model.text_proj.out_features, 
+    #                                 bias=True,
+    #                                 weight_bits = args['text_submodule_FF_weight_bits'],
+    #                                 activation_bits = args['text_submodule_FF_activation_bits'])
+
+    #     # copy over weights
+    #     with torch.no_grad():
+    #         Q_layer.weight.copy_(model.text_proj.weight)
+    #         Q_layer.bias.copy_(model.text_proj.bias)
+
+        
+    #     model.text_proj = Q_layer
         
     print(model)
     
