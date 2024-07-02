@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from layers.nbitlineardynamic import NBitLinearDynamic
+from lavis.layers.nbitlineardynamic import NBitLinearDynamic
 
 '''
 Takes in nn.Linear and returns equivalent NBitLinearDynamic replacement

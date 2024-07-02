@@ -8,14 +8,12 @@
 #SBATCH --partition=vulcan-scavenger
 #SBATCH --qos=vulcan-scavenger                                  # set QOS, this will determine what resources can be requested
 #SBATCH --account=vulcan-abhinav
-#SBATCH --gres=gpu:p6000:8
+#SBATCH --gres=gpu:rtxa4000:8
 
 #SBATCH --nodes=1                                               # number of nodes to allocate for your job
 #SBATCH --ntasks=1                                              
 #SBATCH --ntasks-per-node=1                                      
 #SBATCH --mem=128gb                                               # (cpu) memory required by job; if unit is not specified MB will be assumed
-
-# OUTPUT_DIR='/fs/nexus-scratch/vla/BLIP2_runs/flickr_baseline'
 
 module load cuda
 
