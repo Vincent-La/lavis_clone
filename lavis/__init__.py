@@ -19,7 +19,12 @@ from lavis.tasks import *
 
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
-default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default.yaml"))
+
+# NOTE: set default config based on current user
+if os.environ.get('USER') == 'vla':
+    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default_vla.yaml")) 
+else:    
+    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default.yaml"))
 
 registry.register_path("library_root", root_dir)
 repo_root = os.path.join(root_dir, "..")
