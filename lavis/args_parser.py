@@ -144,21 +144,21 @@ def parse_args():
     # TODO: options for cls modules (only for LLM ?)
 
     # NOTE:uncomment this when done 
-    # args = parser.parse_args()
+    args = parser.parse_args()
 
     # TODO: REMOVE
-    CLI_INPUT = f'''
-                --cfg-path /nfshomes/vla/scratch/LAVIS/ret_flickr_eval.yaml
-                --visual-encoder-block-modules qkv proj fc1 fc2
-                --visual-encoder-block-indices {' '.join([str(i) for i in range(39)])}
-                --visual-encoder-block-weight-bits 8
-                --qformer-self-attention-modules query key value dense
-                --qformer-self-attention-weight-bits 8
-                --qformer-cross-attention-modules query key value dense
-                --qformer-cross-attention-weight-bits 8
-                '''
+    # CLI_INPUT = f'''
+    #             --cfg-path /nfshomes/vla/scratch/LAVIS/ret_flickr_eval.yaml
+    #             --visual-encoder-block-modules qkv proj fc1 fc2
+    #             --visual-encoder-block-indices {' '.join([str(i) for i in range(39)])}
+    #             --visual-encoder-block-weight-bits 8
+    #             --qformer-self-attention-modules query key value dense
+    #             --qformer-self-attention-weight-bits 8
+    #             --qformer-cross-attention-modules query key value dense
+    #             --qformer-cross-attention-weight-bits 8
+    #             '''
     
-    args = parser.parse_args(CLI_INPUT.split())
+    # args = parser.parse_args(CLI_INPUT.split())
    
     
     # if 'LOCAL_RANK' not in os.environ:

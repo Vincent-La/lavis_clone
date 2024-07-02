@@ -22,7 +22,9 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 
 # NOTE: set default config based on current user
 if os.environ.get('USER') == 'vla':
-    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default_vla.yaml")) 
+    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default_vla.yaml"))
+# TODO: add other ethan + gautom options
+
 else:    
     default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default.yaml"))
 
