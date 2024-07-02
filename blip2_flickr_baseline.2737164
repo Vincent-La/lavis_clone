@@ -682,3 +682,25 @@ Blip2Qformer(
   warnings.warn(_create_warning_msg(
 
 2024-07-02 12:54:57,769 [INFO] Computing features for evaluation...
+Evaluation:  [  0/126]  eta: 0:02:57    time: 1.4101  data: 0.0002  max mem: 11807
+Evaluation:  [ 50/126]  eta: 0:01:05    time: 0.8543  data: 0.0000  max mem: 11807
+Evaluation:  [100/126]  eta: 0:00:22    time: 0.8588  data: 0.0000  max mem: 11807
+Evaluation:  [125/126]  eta: 0:00:00    time: 0.8956  data: 0.0000  max mem: 11807
+Evaluation: Total time: 0:01:48 (0.8630 s / it)
+Evaluation:  [  0/626]  eta: 0:12:45    time: 1.2221  data: 0.0005  max mem: 11807
+Evaluation:  [ 50/626]  eta: 0:15:57    time: 1.6910  data: 0.0000  max mem: 11807
+Evaluation:  [100/626]  eta: 0:14:42    time: 1.7080  data: 0.0000  max mem: 11807
+Evaluation:  [150/626]  eta: 0:13:14    time: 1.6306  data: 0.0000  max mem: 11807
+Evaluation:  [200/626]  eta: 0:11:54    time: 1.7144  data: 0.0000  max mem: 11807
+Evaluation:  [250/626]  eta: 0:10:31    time: 1.7019  data: 0.0000  max mem: 11807
+Evaluation:  [300/626]  eta: 0:09:07    time: 1.7255  data: 0.0000  max mem: 11807
+Evaluation:  [350/626]  eta: 0:07:44    time: 1.7176  data: 0.0000  max mem: 11807
+Evaluation:  [400/626]  eta: 0:06:20    time: 1.6946  data: 0.0000  max mem: 11807
+Evaluation:  [450/626]  eta: 0:04:56    time: 1.6729  data: 0.0000  max mem: 11807
+Evaluation:  [500/626]  eta: 0:03:31    time: 1.6177  data: 0.0000  max mem: 11807
+Evaluation:  [550/626]  eta: 0:02:07    time: 1.6952  data: 0.0000  max mem: 11807
+Evaluation:  [600/626]  eta: 0:00:43    time: 1.6562  data: 0.0000  max mem: 11807
+Evaluation:  [625/626]  eta: 0:00:01    time: 1.7386  data: 0.0000  max mem: 11807
+Evaluation: Total time: 0:17:34 (1.6837 s / it)
+2024-07-02 13:18:57,631 [INFO] Evaluation time 0:23:59
+2024-07-02 13:18:59,431 [INFO] {'txt_r1': 97.6, 'txt_r5': 100.0, 'txt_r10': 100.0, 'txt_r_mean': 99.2, 'img_r1': 89.74, 'img_r5': 98.18, 'img_r10': 98.94, 'img_r_mean': 95.62, 'r_mean': 97.41, 'agg_metrics': 99.2}
