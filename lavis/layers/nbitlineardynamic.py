@@ -113,3 +113,8 @@ class NBitLinearDynamic(nn.Linear):
         y = F.linear(x_quant, w_quant)
         
         return y
+    
+    # print out bitwidth info!
+    def extra_repr(self) -> str:
+        return super().extra_repr() + f' | w={self.weight_bits}, a={self.activation_bits}'
+

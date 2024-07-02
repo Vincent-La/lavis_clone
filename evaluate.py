@@ -94,8 +94,7 @@ def main():
     model = task.build_model(cfg)
 
     # APPLY QUANTIZATION CONFIG
-    # cast Namespace --> dict
-    quantize(model, vars(args))
+    quantize(model, args)
     
     
     # # print(args)
