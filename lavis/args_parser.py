@@ -167,11 +167,11 @@ def parse_args():
     args_dict = vars(args)
     
     # TODO: ensure groups of settings are all defined
-    if None in [args_dict['visual_encoder_block_modules'],
-                args_dict['visual_encoder_block_indices'], 
-                args_dict['visual_encoder_block_weight_bits']]:
+    # if None in [args_dict['visual_encoder_block_modules'],
+    #             args_dict['visual_encoder_block_indices'], 
+    #             args_dict['visual_encoder_block_weight_bits']]:
         
-        parser.error('--visual-encoder-block-modules, --visual-encoder-block-indices, --visual-encoder-block-weight-bits, must be given together')
+    #     parser.error('--visual-encoder-block-modules, --visual-encoder-block-indices, --visual-encoder-block-weight-bits, must be given together')
     
 
     return args

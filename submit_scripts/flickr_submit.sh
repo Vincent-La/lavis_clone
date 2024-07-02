@@ -23,7 +23,8 @@ micromamba activate LAVIS
 
 python -m torch.distributed.run \
        --nproc_per_node=8 evaluate.py \
-       --cfg-path ret_flickr_eval.yaml \
+       --cfg-path ret_flickr_eval.yaml
+
 wait                                                            # wait for any background processes to complete
 
 # once the end of the batch script is reached your job allocation will be revoked
