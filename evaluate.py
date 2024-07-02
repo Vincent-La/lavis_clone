@@ -95,50 +95,11 @@ def main():
 
     # APPLY QUANTIZATION CONFIG
     quantize(model, args)
-    
-    
-    # # print(args)
-    # print('cfg weight bits:', args['img_submodule_FF_weight_bits'])
-    # print('cfg act bits:', args['img_submodule_FF_activation_bits'])
-    
-    # # Quantize Q-former Image sub-module if specified
-    # if args['img_submodule_FF_weight_bits'] != None and args['img_submodule_FF_activation_bits'] != None:
-    
-    #     Q_layer = NBitLinearDynamic(model.vision_proj.in_features, 
-    #                                 model.vision_proj.out_features, 
-    #                                 bias=True,
-    #                                 weight_bits = args['img_submodule_FF_weight_bits'],
-    #                                 activation_bits = args['img_submodule_FF_activation_bits'])
-
-    #     # copy over weights
-    #     with torch.no_grad():
-    #         Q_layer.weight.copy_(model.vision_proj.weight)
-    #         Q_layer.bias.copy_(model.vision_proj.bias)
-
-        
-    #     model.vision_proj = Q_layer
-        
-    # # Quantize Q-former Text sub-module if specified
-    # if args['text_submodule_FF_weight_bits'] != None and args['text_submodule_FF_activation_bits'] != None:
-    
-    #     Q_layer = NBitLinearDynamic(model.text_proj.in_features, 
-    #                                 model.text_proj.out_features, 
-    #                                 bias=True,
-    #                                 weight_bits = args['text_submodule_FF_weight_bits'],
-    #                                 activation_bits = args['text_submodule_FF_activation_bits'])
-
-    #     # copy over weights
-    #     with torch.no_grad():
-    #         Q_layer.weight.copy_(model.text_proj.weight)
-    #         Q_layer.bias.copy_(model.text_proj.bias)
-
-        
-    #     model.text_proj = Q_layer
-        
+         
     print(model)
     
-    # import sys
-    # sys.exit(1)
+    import sys
+    sys.exit(1)
 
 
     runner = RunnerBase(

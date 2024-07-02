@@ -119,9 +119,10 @@ else:
 
 
 params = {
-          'sh_degree': ['--sh_degree','none', [2]],
-          'epochs': ['--epochs', 'none', [500]], #TODO
-
+          'cfg-path': ['--cfg-path', 'cfg', ['ret_flickr_eval.yaml']],              # set BLIP-2 model + task
+          'vit_modules': ['--visual-encoder-block-modules', 'vit_mods', [['qkv', 'proj', 'fc1', 'fc2']]],
+          'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices', [[i for i in range(39)]]],
+          'vit_weight_bits': ['--visual-encoder-block-weight-bits', 'vit_weight_bits', [8]]
 }
 #######################################################################
 
@@ -190,6 +191,7 @@ with open(f'{args.base_dir}/{args.output_dirname}/{args.env}/now.txt', "w") as n
 
     arg_list = []
     for key, param in params.items():
+        
         cur_arg_list = []
         if not isinstance(param[2],list):
             param[2] = [param[2]]
@@ -209,8 +211,8 @@ with open(f'{args.base_dir}/{args.output_dirname}/{args.env}/now.txt', "w") as n
         # Allows modification of current set of args
         job_args = {arg.name:arg.copy() for arg in job_args}
         
-        job_string = ''
-        python_cmd = 'python train.py  '
+        job_string = 'test_job'
+        python_cmd = 'python -m torch.distributed.run --nproc_per_node=8 evaluate.py'
         for arg_name, arg in job_args.items():
             python_cmd += arg.cmd_string
             job_string += arg.job_string
