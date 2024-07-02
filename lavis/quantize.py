@@ -24,29 +24,6 @@ def quantize_layer(module:nn.Linear, weight_bits = 32, activation_bits=32):
 
     return Q_layer
 
-
-# def quantize_visual_encoder_block(module_parent, args):
-#     for name, module in module_parent.named_children():
-#         if name in args['visual_encoder_block_modules']:
-#             print('parent: ', module_parent)
-#             print('child: ', name)
-            
-#             # TODO: could customize weight_bits/activation_bits per block 
-#             setattr(module_parent, name, quantize_layer(module, weight_bits = args['visual_encoder_block_weight_bits']))
-            
-#         else:
-#             quantize_visual_encoder_block(module, args)
-            
-
-# def quantize_visual_encoder_blocks(blocks, args):
-#     for name, module in blocks.named_children():
-#         # apply quant config to specified block indices
-#         if int(name) in args['visual_encoder_block_indices']:
-#             # print('here')
-#             quantize_visual_encoder_block(module, args)
-         
-
-
 def quantize_selected_modules(module_cur, modules_to_quant, weight_bits):
     for name, module in module_cur.named_children():
         if name in modules_to_quant:
@@ -76,7 +53,7 @@ def quantize(model, args):
     # Visual encoder blocks
     if args['visual_encoder_block_modules']:
         quantize_blocks(model.visual_encoder.blocks, 
-                        ['attn'],
+                        ['attn', 'mlp'],
                         args['visual_encoder_block_modules'],
                         args['visual_encoder_block_indices'],
                         args['visual_encoder_block_weight_bits'])
@@ -118,14 +95,32 @@ def quantize(model, args):
                             ['dense'],
                             args['qformer_layer_indices'],
                             args['qformer_img_ff_weight_bits'])
-        
-        
-    # # Visual encoder blocks
-    # if args['visual_encoder_block_modules']:
-    #     quantize_visual_encoder_blocks(model.visual_encoder.blocks, args)
-        
-    # # TODO: Q-Former layers
     
-        
-    
+    # cls BERT output
+    if args['qformer_cls_modules']:
+        for module in args['qformer_cls_modules']:
+            if module == 'transform':
+                weight_bits = args['qformer_cls_transform_weight_bits']
+                quantize_selected_modules(model.Qformer.cls.predictions,
+                                          ['dense'],
+                                          weight_bits)
+            elif module == 'decoder':
+                weight_bits = args['qformer_cls_decoder_weight_bits']
+                quantize_selected_modules(model.Qformer.cls.predictions,
+                                          module,
+                                          weight_bits)
+            
+    # final output layers
+    if args['output_modules']:
+        for module in args['output_modules']:
+            if module == 'vision_proj':
+                weight_bits = args['vision_proj_weight_bits']
+            elif module == 'text_proj':
+                weight_bits = args['text_proj_weight_bits']
+            elif module == 'itm_head':
+                weight_bits = args['itm_head_weight_bits']
+            
+            quantize_selected_modules(model,
+                                      [module],
+                                      weight_bits)
         

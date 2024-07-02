@@ -106,32 +106,58 @@ def args_parser():
                         choices=[i for i in range(1,9)],
                         help='weight bits for Q-Former img submodule feed-forward (intermediate + output layers)')
     
+    
+    # options for cls modules
+    parser.add_argument('--qformer-cls-modules',
+                        required=False,
+                        default=None,
+                        nargs='*',
+                        choices = ['transform', 'decoder'],
+                        help = 'modules of Q-Former [CLS] (BertOnlyMLMHead) head to quantize')
+    
+    parser.add_argument('--qformer-cls-transform-weight-bits',
+                        required=False,
+                        default=None,
+                        type=int,
+                        choices=[i for i in range(1,9)],
+                        help = 'weight bits for Q-Former [CLS] (BertOnlyMLMHead) transform layer')
+    
+    parser.add_argument('--qformer-cls-decoder-weight-bits',
+                    required=False,
+                    default=None,
+                    type=int,
+                    choices=[i for i in range(1,9)],
+                    help = 'weight bits for Q-Former [CLS] (BertOnlyMLMHead) decoder layer')
+    
     # options for final output/projection layers
-    parser.add_argument('--qformer-output-modules',
+    parser.add_argument('--output-modules',
                         required=False,
                         default = None,
+                        nargs = '*',
                         choices=['vision_proj', 'text_proj', 'itm_head'],          # NOTE: itm_head is for image-text matching
-                        help='output modules of Q-former to quantize')
+                        help='output modules to quantize')
     
-    parser.add_argument('--qformer-vision-proj-weight-bits',
+    parser.add_argument('--vision-proj-weight-bits',
                         required=False,
                         default=None,
+                        type = int,
                         choices=[i for i in range(1,9)],
-                        help='weight bits for Q-Former final vision_proj layer')
+                        help='weight bits for final vision_proj layer')
     
-    parser.add_argument('--qformer-text-proj-weight-bits',
+    parser.add_argument('--text-proj-weight-bits',
                         required=False,
                         default=None,
+                        type = int,
                         choices=[i for i in range(1,9)],
-                        help='weight bits for Q-Former final text_proj layer')
+                        help='weight bits for final text_proj layer')
     
-    parser.add_argument('--qformer-itm-head-weight-bits',
+    parser.add_argument('--itm-head-weight-bits',
                         required=False,
                         default=None,
+                        type = int,
                         choices=[i for i in range(1,9)],
-                        help='weight bits for Q-Former final itm_head layer')
+                        help='weight bits for final itm_head layer')
     
-    # TODO: options for cls modules (only for LLM ?)
     
     return parser
 
@@ -153,10 +179,6 @@ def parse_args():
     
     args = parser.parse_args()
     validate_args(parser, args)
-
-    
-    # args = parser.parse_args(CLI_INPUT.split())
-   
     
     # if 'LOCAL_RANK' not in os.environ:
     #     os.environ['LOCAL_RANK'] = str(args.local_rank)
