@@ -98,10 +98,6 @@ def main():
          
     print(model)
     
-    import sys
-    sys.exit(1)
-
-
     runner = RunnerBase(
         cfg=cfg, job_id=job_id, task=task, model=model, datasets=datasets
     )

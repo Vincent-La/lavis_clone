@@ -1,10 +1,9 @@
-python multi_sbatch.py --nhrs 8 \
+python multi_sbatch.py --env vit_attn \
+                       --nhrs 8 \
                        --output-dirname slurm_files \
                        --qos scav \
                        --partition nexus \
-                       --env exp_name \
-                       --gpu 8 --gpu-type a4000 \
+                       --gpu 8 --gpu-type a5000 \
                        --cores 1 \
                        --mem 128 \
-                       --dryrun
                        

@@ -179,6 +179,7 @@ def args_parser():
     return parser
 
 def validate_args(args):
+    return
     args_dict = vars(args)
     
      # TODO: ensure groups of settings are all defined, either all None or all defined
@@ -195,7 +196,7 @@ def parse_args():
     parser = args_parser()
     
     args = parser.parse_args()
-    validate_args(parser, args)
+    validate_args(args)
     
     # if 'LOCAL_RANK' not in os.environ:
     #     os.environ['LOCAL_RANK'] = str(args.local_rank)

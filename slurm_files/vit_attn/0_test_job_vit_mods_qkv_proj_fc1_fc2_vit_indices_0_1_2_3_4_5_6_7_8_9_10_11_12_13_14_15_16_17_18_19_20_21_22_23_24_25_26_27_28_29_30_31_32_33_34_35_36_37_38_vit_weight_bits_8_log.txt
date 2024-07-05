@@ -3,16 +3,18 @@ WARNING:__main__:
 Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
 *****************************************
 | distributed init (rank 0, world 8): env://
-| distributed init (rank 6, world 8): env://
-| distributed init (rank 4, world 8): env://
-| distributed init (rank 7, world 8): env://
-| distributed init (rank 5, world 8): env://
 | distributed init (rank 2, world 8): env://
 | distributed init (rank 1, world 8): env://
+| distributed init (rank 5, world 8): env://
+| distributed init (rank 4, world 8): env://
+| distributed init (rank 6, world 8): env://
 | distributed init (rank 3, world 8): env://
-2024-07-02 12:52:54,955 [INFO] 
+| distributed init (rank 7, world 8): env://
+CACHE_ROOT:/fs/nexus-scratch/vla/.cache
+STORAGE_PATH:/fs/nexus-scratch/vla/.cache/flickr30k/annotations/train.json
+2024-07-05 15:46:50,685 [INFO] 
 =====  Running Parameters    =====
-2024-07-02 12:52:54,956 [INFO] {
+2024-07-05 15:46:50,685 [INFO] {
     "batch_size_eval": 32,
     "batch_size_train": 16,
     "device": "cuda",
@@ -33,11 +35,11 @@ Setting OMP_NUM_THREADS environment variable for each process to be 1 in default
     "use_dist_eval_sampler": false,
     "world_size": 8
 }
-2024-07-02 12:52:54,956 [INFO] 
+2024-07-05 15:46:50,685 [INFO] 
 ======  Dataset Attributes  ======
-2024-07-02 12:52:54,956 [INFO] 
+2024-07-05 15:46:50,685 [INFO] 
 ======== flickr30k =======
-2024-07-02 12:52:54,957 [INFO] {
+2024-07-05 15:46:50,686 [INFO] {
     "build_info": {
         "annotations": {
             "test": {
@@ -70,9 +72,9 @@ Setting OMP_NUM_THREADS environment variable for each process to be 1 in default
         }
     }
 }
-2024-07-02 12:52:54,957 [INFO] 
+2024-07-05 15:46:50,686 [INFO] 
 ======  Model Attributes  ======
-2024-07-02 12:52:54,957 [INFO] {
+2024-07-05 15:46:50,686 [INFO] {
     "arch": "blip2",
     "drop_path_rate": 0,
     "finetuned": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_finetune_coco.pth",
@@ -85,42 +87,40 @@ Setting OMP_NUM_THREADS environment variable for each process to be 1 in default
     "use_grad_checkpoint": false,
     "vit_precision": "fp32"
 }
-CACHE_ROOT:/fs/nexus-scratch/vla/.cache
-STORAGE_PATH:/fs/nexus-scratch/vla/.cache/flickr30k/annotations/train.json
 Using downloaded and verified file: /fs/nexus-scratch/vla/.cache/flickr30k/annotations/train.json
 STORAGE_PATH:/fs/nexus-scratch/vla/.cache/flickr30k/annotations/val.json
 Using downloaded and verified file: /fs/nexus-scratch/vla/.cache/flickr30k/annotations/val.json
 STORAGE_PATH:/fs/nexus-scratch/vla/.cache/flickr30k/annotations/test.json
 Using downloaded and verified file: /fs/nexus-scratch/vla/.cache/flickr30k/annotations/test.json
-2024-07-02 12:52:55,019 [INFO] Building datasets...
-2024-07-02 12:52:56,395 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:50,794 [INFO] Building datasets...
+2024-07-05 15:46:52,210 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,396 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,211 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,397 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,212 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,398 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,212 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,401 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,213 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,408 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,214 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,409 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,215 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
-2024-07-02 12:52:56,418 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+2024-07-05 15:46:52,219 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 
 MODEL_NAME: eva_clip_g
 Position interpolate from 16x16 to 26x26
-2024-07-02 12:54:53,929 [INFO] Missing keys []
-2024-07-02 12:54:53,929 [INFO] load checkpoint from https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_finetune_coco.pth
+2024-07-05 15:48:58,399 [INFO] Missing keys []
+2024-07-05 15:48:58,399 [INFO] load checkpoint from https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_finetune_coco.pth
 Blip2Qformer(
   (visual_encoder): VisionTransformer(
     (patch_embed): PatchEmbed(
@@ -131,17 +131,17 @@ Blip2Qformer(
       (0-38): 39 x Block(
         (norm1): LayerNorm((1408,), eps=1e-06, elementwise_affine=True)
         (attn): Attention(
-          (qkv): Linear(in_features=1408, out_features=4224, bias=False)
+          (qkv): NBitLinearDynamic(in_features=1408, out_features=4224, bias=False | w=8, a=32)
           (attn_drop): Dropout(p=0.0, inplace=False)
-          (proj): Linear(in_features=1408, out_features=1408, bias=True)
+          (proj): NBitLinearDynamic(in_features=1408, out_features=1408, bias=True | w=8, a=32)
           (proj_drop): Dropout(p=0.0, inplace=False)
         )
         (drop_path): Identity()
         (norm2): LayerNorm((1408,), eps=1e-06, elementwise_affine=True)
         (mlp): Mlp(
-          (fc1): Linear(in_features=1408, out_features=6144, bias=True)
+          (fc1): NBitLinearDynamic(in_features=1408, out_features=6144, bias=True | w=8, a=32)
           (act): GELU(approximate='none')
-          (fc2): Linear(in_features=6144, out_features=1408, bias=True)
+          (fc2): NBitLinearDynamic(in_features=6144, out_features=1408, bias=True | w=8, a=32)
           (drop): Dropout(p=0.0, inplace=False)
         )
       )
@@ -650,57 +650,57 @@ Blip2Qformer(
   (text_proj): Linear(in_features=768, out_features=256, bias=True)
   (itm_head): Linear(in_features=768, out_features=2, bias=True)
 )
-2024-07-02 12:54:53,979 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,867 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:53,990 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,870 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,001 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,873 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,012 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,877 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,023 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,882 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,034 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,885 [INFO] dataset_ratios not specified, datasets will be concatenated (map-style datasets) or chained (webdataset.DataPipeline).
+2024-07-05 15:49:33,885 [INFO] Loaded 145000 records for train split from the dataset.
+2024-07-05 15:49:33,885 [INFO] Loaded 1014 records for val split from the dataset.
+2024-07-05 15:49:33,885 [INFO] Loaded 1000 records for test split from the dataset.
+2024-07-05 15:49:33,885 [INFO] Empty train splits.
+2024-07-05 15:49:33,885 [INFO] Empty train splits.
+2024-07-05 15:49:33,886 [INFO] Empty train splits.
+2024-07-05 15:49:33,886 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,045 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,928 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:54,142 [INFO] dataset_ratios not specified, datasets will be concatenated (map-style datasets) or chained (webdataset.DataPipeline).
-2024-07-02 12:54:54,142 [INFO] Loaded 145000 records for train split from the dataset.
-2024-07-02 12:54:54,142 [INFO] Loaded 1014 records for val split from the dataset.
-2024-07-02 12:54:54,142 [INFO] Loaded 1000 records for test split from the dataset.
-2024-07-02 12:54:54,142 [INFO] Empty train splits.
-2024-07-02 12:54:54,142 [INFO] Empty train splits.
-2024-07-02 12:54:54,142 [INFO] Empty train splits.
-2024-07-02 12:54:54,162 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+2024-07-05 15:49:33,968 [WARNING] /fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/data/dataloader.py:558: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
   warnings.warn(_create_warning_msg(
 
-2024-07-02 12:54:57,769 [INFO] Computing features for evaluation...
-Evaluation:  [  0/126]  eta: 0:02:57    time: 1.4101  data: 0.0002  max mem: 11807
-Evaluation:  [ 50/126]  eta: 0:01:05    time: 0.8543  data: 0.0000  max mem: 11807
-Evaluation:  [100/126]  eta: 0:00:22    time: 0.8588  data: 0.0000  max mem: 11807
-Evaluation:  [125/126]  eta: 0:00:00    time: 0.8956  data: 0.0000  max mem: 11807
-Evaluation: Total time: 0:01:48 (0.8630 s / it)
-Evaluation:  [  0/626]  eta: 0:12:45    time: 1.2221  data: 0.0005  max mem: 11807
-Evaluation:  [ 50/626]  eta: 0:15:57    time: 1.6910  data: 0.0000  max mem: 11807
-Evaluation:  [100/626]  eta: 0:14:42    time: 1.7080  data: 0.0000  max mem: 11807
-Evaluation:  [150/626]  eta: 0:13:14    time: 1.6306  data: 0.0000  max mem: 11807
-Evaluation:  [200/626]  eta: 0:11:54    time: 1.7144  data: 0.0000  max mem: 11807
-Evaluation:  [250/626]  eta: 0:10:31    time: 1.7019  data: 0.0000  max mem: 11807
-Evaluation:  [300/626]  eta: 0:09:07    time: 1.7255  data: 0.0000  max mem: 11807
-Evaluation:  [350/626]  eta: 0:07:44    time: 1.7176  data: 0.0000  max mem: 11807
-Evaluation:  [400/626]  eta: 0:06:20    time: 1.6946  data: 0.0000  max mem: 11807
-Evaluation:  [450/626]  eta: 0:04:56    time: 1.6729  data: 0.0000  max mem: 11807
-Evaluation:  [500/626]  eta: 0:03:31    time: 1.6177  data: 0.0000  max mem: 11807
-Evaluation:  [550/626]  eta: 0:02:07    time: 1.6952  data: 0.0000  max mem: 11807
-Evaluation:  [600/626]  eta: 0:00:43    time: 1.6562  data: 0.0000  max mem: 11807
-Evaluation:  [625/626]  eta: 0:00:01    time: 1.7386  data: 0.0000  max mem: 11807
-Evaluation: Total time: 0:17:34 (1.6837 s / it)
-2024-07-02 13:18:57,631 [INFO] Evaluation time 0:23:59
-2024-07-02 13:18:59,431 [INFO] {'txt_r1': 97.6, 'txt_r5': 100.0, 'txt_r10': 100.0, 'txt_r_mean': 99.2, 'img_r1': 89.74, 'img_r5': 98.18, 'img_r10': 98.94, 'img_r_mean': 95.62, 'r_mean': 97.41, 'agg_metrics': 99.2}
+2024-07-05 15:49:38,591 [INFO] Computing features for evaluation...
+Evaluation:  [  0/126]  eta: 0:02:30    time: 1.1959  data: 0.0002  max mem: 12205
+Evaluation:  [ 50/126]  eta: 0:00:53    time: 0.6893  data: 0.0000  max mem: 12205
+Evaluation:  [100/126]  eta: 0:00:18    time: 0.6920  data: 0.0000  max mem: 12205
+Evaluation:  [125/126]  eta: 0:00:00    time: 0.6912  data: 0.0000  max mem: 12205
+Evaluation: Total time: 0:01:28 (0.6994 s / it)
+Evaluation:  [  0/626]  eta: 0:10:33    time: 1.0113  data: 0.0005  max mem: 12205
+Evaluation:  [ 50/626]  eta: 0:13:03    time: 1.3827  data: 0.0000  max mem: 12205
+Evaluation:  [100/626]  eta: 0:11:59    time: 1.3542  data: 0.0000  max mem: 12205
+Evaluation:  [150/626]  eta: 0:10:52    time: 1.3856  data: 0.0000  max mem: 12205
+Evaluation:  [200/626]  eta: 0:09:43    time: 1.3670  data: 0.0000  max mem: 12205
+Evaluation:  [250/626]  eta: 0:08:35    time: 1.3792  data: 0.0000  max mem: 12205
+Evaluation:  [300/626]  eta: 0:07:27    time: 1.3780  data: 0.0000  max mem: 12205
+Evaluation:  [350/626]  eta: 0:06:18    time: 1.3515  data: 0.0000  max mem: 12205
+Evaluation:  [400/626]  eta: 0:05:10    time: 1.3690  data: 0.0000  max mem: 12205
+Evaluation:  [450/626]  eta: 0:04:01    time: 1.3570  data: 0.0000  max mem: 12205
+Evaluation:  [500/626]  eta: 0:02:52    time: 1.3815  data: 0.0000  max mem: 12205
+Evaluation:  [550/626]  eta: 0:01:44    time: 1.3898  data: 0.0000  max mem: 12205
+Evaluation:  [600/626]  eta: 0:00:35    time: 1.3911  data: 0.0000  max mem: 12205
+Evaluation:  [625/626]  eta: 0:00:01    time: 1.3914  data: 0.0000  max mem: 12205
+Evaluation: Total time: 0:14:20 (1.3744 s / it)
+2024-07-05 16:10:21,318 [INFO] Evaluation time 0:20:42
+2024-07-05 16:10:22,946 [INFO] {'txt_r1': 0.1, 'txt_r5': 0.5, 'txt_r10': 1.0, 'txt_r_mean': 0.5333333333333333, 'img_r1': 0.04, 'img_r5': 0.3, 'img_r10': 0.66, 'img_r_mean': 0.3333333333333333, 'r_mean': 0.43333333333333335, 'agg_metrics': 0.5333333333333333}
