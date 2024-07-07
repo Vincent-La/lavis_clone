@@ -114,17 +114,81 @@ print("Output Directory: %s" % output_dir)
 
 if "nexus" in socket.gethostname():
     # root = 'root' ## TODO
+    
+    # NOTE: set to cwd for now but should change to project dir or repo
     root = os.getcwd()
 else:
     raise Exception("Not on nexus")
 
 
-params = {
-          'cfg-path': ['--cfg-path', 'none', ['ret_flickr_eval.yaml']],              # set BLIP-2 model + task
-          'vit_modules': ['--visual-encoder-block-modules', 'vit_mods_', [['qkv', 'proj']]],
-          'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices_', [[i for i in range(39)]]],
-          'vit_weight_bits': ['--visual-encoder-block-weight-bits', 'vit_weight_bits_', [8]]
+ALL_WEIGHT_BITS = [8,6,4,2,1]
+
+ALL_VIT_BLOCKS = [i for i in range(39)]
+# EVEN_VIT_BLOCKS = [i for i in range(39) if i%2==0]
+# ODD_VIT_BLOCKS = [i for i in range(39) if i%2==1]
+
+VIT_BLOCK_MODS = ['qkv', 'proj', 'fc1', 'fc2']
+VIT_BLOCK_ATTENTION_MODS = ['qkv', 'proj']
+VIT_BLOCK_MLP_MODS = ['fc1', 'fc2']
+
+# NOTE: be careful with nesting lists here
+
+VIT_OPTIONS = {
+    'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices_', [ALL_VIT_BLOCKS]],
+    'vit_modules':       ['--visual-encoder-block-modules', 'vit_mods_', [VIT_BLOCK_ATTENTION_MODS, VIT_BLOCK_MLP_MODS, VIT_BLOCK_MODS]],
+    'vit_weight_bits':   ['--visual-encoder-block-weight-bits', 'vit_weight_bits_', ALL_WEIGHT_BITS],
 }
+
+ALL_QFORMER_LAYERS = [i for i in range(12)]
+QFORMER_BLOCK_MODS = ['query', 'key', 'value', 'dense']   # NOTE: 'dense' refers to output linear layer for BertLayer
+QFORMER_BLOCK_ATTENTION_MODS = ['query', 'key', 'value']
+QFORMER_BLOCK_OUTPUT_MODS = ['dense']
+QFORMER_BLOCK_FF_MODS = ['intermediate', 'output']
+QFORMER_CLS_MODS = ['transform', 'decoder']
+OUTPUT_MODS = ['vision_proj', 'text_proj', 'itm_head']
+
+
+QFORMER_OPTIONS = {}
+# QFORMER_OPTIONS = {
+#     'qformer_layer_indices':               ['--qformer-layer-indices', 'qformer_indices_', [ALL_QFORMER_LAYERS]],
+    
+#     # self-attention
+#     'qformer_self_attention_mods':         ['--qformer-self-attention-modules', 'qformer_SA_mods_', [QFORMER_BLOCK_ATTENTION_MODS, QFORMER_BLOCK_OUTPUT_MODS , QFORMER_BLOCK_MODS]],
+#     'qformer_self_attention_weight_bits':  ['--qformer-self-attention-weight-bits', 'qformer_SA_weight_bits', ALL_WEIGHT_BITS],
+    
+#     # cross-attention
+#     'qformer_cross_attention_mods':        ['--qformer-cross-attention-modules', 'qformer_CA_mods_', [QFORMER_BLOCK_ATTENTION_MODS, QFORMER_BLOCK_OUTPUT_MODS, QFORMER_BLOCK_MODS]],
+#     'qformer_cross_attention_weight_bits': ['--qformer-cross-attention-weight-bits', 'qformer_CA_weight_bits_', ALL_WEIGHT_BITS],
+    
+#     # text feed-forward (per-block)
+#     'qformer_text_ff_mods':                ['--qformer-text-ff-modules', 'qformer_text_ff_mods_', [QFORMER_BLOCK_FF_MODS]],
+#     'qformer_text_ff_weight_bits':         ['--qformer-text-ff-weight-bits', 'qformer_text_ff_weight_bits_', ALL_WEIGHT_BITS],
+    
+#     # img feed-forward (per-block)
+#     'qformer_img_ff_mods':                 ['--qformer-img-ff-modules', 'qformer_img_ff_mods_', [QFORMER_BLOCK_FF_MODS]],
+#     'qformer_img_ff_weight_bits':          ['--qformer-img-ff-weight-bits', 'qformer_img_ff_weight_bits_', ALL_WEIGHT_BITS],
+     
+#     # classification (cls) head 
+#     'qformer_cls_mods':                    ['--qformer-cls-modules', 'qformer_cls_mods_', QFORMER_CLS_MODS],
+#     'qformer-cls_transform_weight_bits':   ['--qformer-cls-transform-weight-bits', 'qformer_cls_transform_weight_bits_', ALL_WEIGHT_BITS],  # NOTE: 'transform must be in --qformer-cls-modules
+#     'qformer-cls_decoder_weight_bits':     ['--qformer-cls-decoder-weight-bits', 'qformer_cls_decoder_weight_bits_', ALL_WEIGHT_BITS], #NOTE: 'decoder' must be in --qformer-cls-modules
+    
+#     # final output/projection layers
+#     'output_mods':                         ['--output-modules', 'output_mods_', OUTPUT_MODS],
+#     'vision_proj_weight_bits':             ['--vision-proj-weight-bits', 'vision_proj_weight_bits_', ALL_WEIGHT_BITS],
+#     'text_proj_weight_bits':               ['--text-proj-weight-bits', 'text_proj_weight_bits_', ALL_WEIGHT_BITS],
+#     'itm_head_weight_bits':                ['--itm-head-weight-bits', 'itm_head_weight_bits_', ALL_WEIGHT_BITS]
+                
+# }
+
+
+params = {
+    'cfg-path': ['--cfg-path', 'none', ['ret_flickr_eval.yaml']],              # set BLIP-2 model + task
+}
+
+params = {**params, **VIT_OPTIONS, **QFORMER_OPTIONS}
+
+
 #######################################################################
 
 class Argument(object):
@@ -212,7 +276,8 @@ with open(f'{args.base_dir}/{args.output_dirname}/{args.env}/now.txt', "w") as n
         # Allows modification of current set of args
         job_args = {arg.name:arg.copy() for arg in job_args}
         
-        job_string = 'test_job'
+        # NOTE: set job string and python_cmd
+        job_string = 'blip2_flickr'
         python_cmd = 'python -m torch.distributed.run --nproc_per_node=8 evaluate.py'
         for arg_name, arg in job_args.items():
             python_cmd += arg.cmd_string

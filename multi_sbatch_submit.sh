@@ -1,4 +1,4 @@
-python multi_sbatch.py --env vit_attn_only \
+python multi_sbatch.py --env vit_small_batch \
                        --nhrs 8 \
                        --output-dirname slurm_files \
                        --qos scav \
