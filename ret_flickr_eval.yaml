@@ -40,6 +40,6 @@ run:
 
   # misc
   seed: 42
-  output_dir: "output/BLIP2/Retrieval_Flickr30k"
+  output_dir: "/fs/nexus-scratch/vla/LAVIS/output/BLIP2/Retrieval_Flickr30k"
 
   evaluate: True
