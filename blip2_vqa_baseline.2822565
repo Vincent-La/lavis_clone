@@ -740,3 +740,84 @@ Blip2T5(
   warnings.warn(_create_warning_msg(
 
 Evaluation  [  0/419]  eta: 7:09:22    time: 61.4857  data: 38.2504  max mem: 19641
+Evaluation  [ 10/419]  eta: 1:34:04    time: 13.8012  data: 3.4996  max mem: 21330
+Evaluation  [ 20/419]  eta: 1:14:32    time: 8.6952  data: 0.0171  max mem: 21330
+Evaluation  [ 30/419]  eta: 1:07:37    time: 8.5774  data: 0.0227  max mem: 21330
+Evaluation  [ 40/419]  eta: 1:03:17    time: 8.7713  data: 0.0300  max mem: 21330
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/evaluate.py", line 108, in <module>
+[rank1]:     main()
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/evaluate.py", line 104, in main
+[rank1]:     runner.evaluate(skip_reload=True)
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/runners/runner_base.py", line 441, in evaluate
+[rank1]:     test_logs[split_name] = self.eval_epoch(
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+[rank1]:     return func(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/runners/runner_base.py", line 489, in eval_epoch
+[rank1]:     results = self.task.evaluation(model, data_loader)
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/tasks/base_task.py", line 96, in evaluation
+[rank1]:     eval_output = self.valid_step(model=model, samples=samples)
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/tasks/vqa.py", line 133, in valid_step
+[rank1]:     answers = model.predict_answers(
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/models/blip2_models/blip2_t5.py", line 296, in predict_answers
+[rank1]:     outputs = self.t5_model.generate(
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+[rank1]:     return func(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/transformers/generation/utils.py", line 1681, in generate
+[rank1]:     return self.beam_search(
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/transformers/generation/utils.py", line 3020, in beam_search
+[rank1]:     outputs = self(
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/LAVIS/lavis/models/blip2_models/modeling_t5.py", line 1870, in forward
+[rank1]:     lm_logits = self.lm_head(sequence_output)
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+[rank1]:     return self._call_impl(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+[rank1]:     return forward_call(*args, **kwargs)
+[rank1]:   File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 116, in forward
+[rank1]:     return F.linear(input, self.weight, self.bias)
+[rank1]: torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU  has a total capacity of 23.67 GiB of which 107.12 MiB is free. Including non-PyTorch memory, this process has 23.56 GiB memory in use. Of the allocated memory 21.89 GiB is allocated by PyTorch, and 1.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+W0706 20:34:43.144000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486952 closing signal SIGTERM
+W0706 20:34:43.144000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486954 closing signal SIGTERM
+W0706 20:34:43.144000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486955 closing signal SIGTERM
+W0706 20:34:43.144000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486956 closing signal SIGTERM
+W0706 20:34:43.145000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486957 closing signal SIGTERM
+W0706 20:34:43.145000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486958 closing signal SIGTERM
+W0706 20:34:43.145000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:851] Sending process 2486959 closing signal SIGTERM
+E0706 20:34:48.540000 139968914507584 torch/distributed/elastic/multiprocessing/api.py:826] failed (exitcode: 1) local_rank: 1 (pid: 2486953) of binary: /fs/nexus-scratch/vla/micromamba/envs/LAVIS/bin/python
+Traceback (most recent call last):
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/run.py", line 883, in <module>
+    main()
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/run.py", line 879, in main
+    run(args)
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/run.py", line 870, in run
+    elastic_launch(
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 132, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/fs/nexus-scratch/vla/micromamba/envs/LAVIS/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 263, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+evaluate.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2024-07-06_20:34:43
+  host      : vulcan34.umiacs.umd.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 2486953)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
