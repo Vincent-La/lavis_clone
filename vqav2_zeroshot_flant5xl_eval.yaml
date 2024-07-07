@@ -43,7 +43,6 @@ run:
   prompt: "Question: {} Short answer:"
 
   seed: 42
-  output_dir: "/fs/nexus-scratch/vla/LAVIS/output/BLIP2/VQA"
 
   evaluate: True
   test_splits: ["val"]
