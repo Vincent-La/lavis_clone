@@ -113,10 +113,8 @@ if not os.path.exists(output_dir):
 print("Output Directory: %s" % output_dir)
 
 if "nexus" in socket.gethostname():
-    # root = 'root' ## TODO
-    
-    # NOTE: set to cwd for now but should change to project dir or repo
-    root = os.getcwd()
+    # NOTE: set to repo top-level dir
+    root = os.path.realpath('..')
 else:
     raise Exception("Not on nexus")
 
