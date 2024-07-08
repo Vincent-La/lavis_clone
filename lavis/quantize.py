@@ -134,11 +134,17 @@ def model_size(model):
     
     layers = get_layers(model)
     size = 0
+    
+    # model params
     for layer in layers:
         for name, param in layer.named_parameters():
             #  NOTE: element_size in bits
-            element_size = layer.weight_bits if isinstance(layer, NBitLinearDynamic) else param.element_size() * 8
+            element_size = layer.weight_bits if isinstance(layer, NBitLinearDynamic) else (param.element_size() * 8)
             size += param.nelement() * element_size
+    
+    # model buffers (not quantized)
+    for buffer in model.buffers():
+        size += buffer.nelement() * (buffer.element_size() * 8)
 
     # bits --> megabytes
     size /= (8e6)
