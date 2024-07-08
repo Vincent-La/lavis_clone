@@ -45,7 +45,8 @@ def quantize_blocks(blocks, parent_modules, modules_to_quant, indices, weight_bi
          # apply quant config to specified block indices
         if int(name) in indices:
             quantize_block(module, parent_modules, modules_to_quant, weight_bits)
-        
+            
+
 def quantize(model, args):
     
     args = vars(args)
@@ -123,4 +124,22 @@ def quantize(model, args):
             quantize_selected_modules(model,
                                       [module],
                                       weight_bits)
-        
+    
+       
+def model_size(model):
+    # returns all layers of model
+    def get_layers(model):
+        children = list(model.children())
+        return [model] if len(children) == 0 else [ci for c in children for ci in get_layers(c)]
+    
+    layers = get_layers(model)
+    size = 0
+    for layer in layers:
+        for name, param in layer.named_parameters():
+            #  NOTE: element_size in bits
+            element_size = layer.weight_bits if isinstance(layer, NBitLinearDynamic) and name == 'weight' else param.element_size() * 8
+            size += param.nelement() * element_size
+
+    # bits --> megabytes
+    size /= (8e6)
+    return size

@@ -7,6 +7,5 @@ python flickr_multi_sbatch.py --env vit_small_batch \
                               --mem 128 \
                               --base-dir /fs/nexus-scratch/vla/LAVIS \
                               --output-dirname slurm_files \
-                              --dryrun
 
 # TODO: set base-dir to project-dir
