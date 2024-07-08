@@ -131,6 +131,7 @@ VIT_BLOCK_MLP_MODS = ['fc1', 'fc2']
 
 # NOTE: be careful with nesting lists here
 
+VIT_OPTIONS = {}
 VIT_OPTIONS = {
     'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices_', [ALL_VIT_BLOCKS]],
     'vit_modules':       ['--visual-encoder-block-modules', 'vit_mods_', [VIT_BLOCK_ATTENTION_MODS, VIT_BLOCK_MLP_MODS, VIT_BLOCK_MODS]],
