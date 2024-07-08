@@ -34,30 +34,6 @@ from lavis.layers.nbitlineardynamic import NBitLinearDynamic
 from lavis.args_parser import parse_args
 from lavis.quantize import *
 
-# def parse_args():
-#     parser = argparse.ArgumentParser(description="Training")
-
-#     parser.add_argument("--cfg-path", required=True, help="path to configuration file.")
-#     parser.add_argument(
-#         "--options",
-#         nargs="+",
-#         help="override some settings in the used config, the key-value pair "
-#         "in xxx=yyy format will be merged into config file (deprecate), "
-#         "change to --cfg-options instead.",
-#     )
-    
-#     parser.add_argument('--img-submodule-FF-weight_bits', required = False, default = None, type = int)
-#     parser.add_argument('--img-submodule-FF-activation_bits', required = False, default = None, type = int)
-    
-#     parser.add_argument('--text-submodule-FF-weight_bits', required = False, default = None, type = int)
-#     parser.add_argument('--text-submodule-FF-activation_bits', required = False, default = None, type = int)
-
-#     args = parser.parse_args()
-#     # if 'LOCAL_RANK' not in os.environ:
-#     #     os.environ['LOCAL_RANK'] = str(args.local_rank)
-
-#     return args
-
 
 def setup_seeds(config):
     seed = config.run_cfg.seed + get_rank()
@@ -86,7 +62,6 @@ def main():
 
     # set after init_distributed_mode() to only log on master.
     setup_logger()
-
     cfg.pretty_print()
 
     task = tasks.setup_task(cfg)
@@ -95,7 +70,6 @@ def main():
 
     # APPLY QUANTIZATION CONFIG
     quantize(model, args)
-    
     print(model)
     
     # write out model size
