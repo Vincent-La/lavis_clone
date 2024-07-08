@@ -20,13 +20,9 @@ from lavis.tasks import *
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 
-# NOTE: set default config based on current user
-if os.environ.get('USER') == 'vla':
-    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default_vla.yaml"))
-# TODO: add other ethan + gautom options
-
-else:    
-    default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default.yaml"))
+# NOTE: set default config so that cache_root points to shared low-bit-vision project directory
+default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default_umiacs.yaml"))
+# default_cfg = OmegaConf.load(os.path.join(root_dir, "configs/default.yaml"))
 
 registry.register_path("library_root", root_dir)
 repo_root = os.path.join(root_dir, "..")
