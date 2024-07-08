@@ -106,11 +106,17 @@ class NBitLinearDynamic(nn.Linear):
 
         """
         w = self.weight
+        b = self.bias
 
         # STE (Straight-through estimator) trick using detach, not really necessary for just PTQ inference
         x_quant = x + (quant(x, self.activation_bits) - x).detach()
         w_quant = w + (quant(w, self.weight_bits) - w).detach()
-        y = F.linear(x_quant, w_quant, bias = self.bias)
+        
+        # quantize bias term if present
+        if b != None:
+            b = b + (quant(b, self.weight_bits) - b).detach()
+        
+        y = F.linear(x_quant, w_quant, bias = b)
         
         return y
     

@@ -95,14 +95,17 @@ def main():
 
     # APPLY QUANTIZATION CONFIG
     quantize(model, args)
-         
+    
     print(model)
+    
+    # write out model size
+    size = model_size(model)
+    print(f'[Model Size]: {size}')
     
     runner = RunnerBase(
         cfg=cfg, job_id=job_id, task=task, model=model, datasets=datasets
     )
     runner.evaluate(skip_reload=True)
-
 
 if __name__ == "__main__":
     main()

@@ -137,7 +137,7 @@ def model_size(model):
     for layer in layers:
         for name, param in layer.named_parameters():
             #  NOTE: element_size in bits
-            element_size = layer.weight_bits if isinstance(layer, NBitLinearDynamic) and name == 'weight' else param.element_size() * 8
+            element_size = layer.weight_bits if isinstance(layer, NBitLinearDynamic) else param.element_size() * 8
             size += param.nelement() * element_size
 
     # bits --> megabytes
