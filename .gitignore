@@ -157,4 +157,4 @@ debug*/
 *.pdf
 
 cache/
-slurm_files/
+*slurm_files/
