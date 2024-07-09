@@ -7,7 +7,7 @@ import time
 import socket
 import itertools
 import subprocess
-
+import git
 
 def run(cmd):
     return subprocess.check_output(cmd, shell=True).decode('UTF-8').splitlines()    
@@ -105,6 +105,10 @@ args = parser.parse_args()
 if args.filename is None:
     args.filename = args.env
 
+
+# NOTE: setting base_dir to repo top-level dir
+args.base_dir = git.Repo('.', search_parent_directories=True).working_tree_dir
+
 output_dir = os.path.join(args.base_dir, args.output_dirname, args.env)
 if os.path.exists(output_dir):
     shutil.rmtree(output_dir)
@@ -112,16 +116,44 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 print("Output Directory: %s" % output_dir)
 
+
 if "nexus" in socket.gethostname():
     # NOTE: set to repo top-level dir
-    root = os.path.realpath('..')
+    root = git.Repo('.', search_parent_directories=True).working_tree_dir
 else:
     raise Exception("Not on nexus")
 
 
-ALL_WEIGHT_BITS = [8,6,4,2,1]
 
+'''
+    index_sets: list of lists of indices to get combinations of
+    returns: list of all possible combinations of index_sets
+'''
+def get_all_index_combos(index_sets):
+    combos = []
+    for n in range(1, len(index_sets) + 1):
+        for subset in itertools.combinations(index_sets, n):
+            flat_list = [x for xs in list(subset) for x in xs]
+            combos.append(flat_list)
+            
+    return combos
+
+
+
+ALL_WEIGHT_BITS = [8,6,4,2]
+
+# ---------Vision Encoder---------
 ALL_VIT_BLOCKS = [i for i in range(39)]
+
+split = 39//3
+FRONT_VIT_BLOCKS = ALL_VIT_BLOCKS[:split]
+MIDDLE_VIT_BLOCKS = ALL_VIT_BLOCKS[split:2*split]
+END_VIT_BLOCKS = ALL_VIT_BLOCKS[2*split:]
+
+# n=7 combos (not including deactivating all blocks)
+vit_block_indices_args = get_all_index_combos([FRONT_VIT_BLOCKS, MIDDLE_VIT_BLOCKS, END_VIT_BLOCKS])
+
+
 # EVEN_VIT_BLOCKS = [i for i in range(39) if i%2==0]
 # ODD_VIT_BLOCKS = [i for i in range(39) if i%2==1]
 
@@ -133,11 +165,11 @@ VIT_BLOCK_MLP_MODS = ['fc1', 'fc2']
 
 VIT_OPTIONS = {}
 VIT_OPTIONS = {
-    'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices_', [ALL_VIT_BLOCKS]],
+    'vit_block_indices': ['--visual-encoder-block-indices', 'vit_indices_', vit_block_indices_args],
     'vit_modules':       ['--visual-encoder-block-modules', 'vit_mods_', [VIT_BLOCK_ATTENTION_MODS, VIT_BLOCK_MLP_MODS, VIT_BLOCK_MODS]],
-    'vit_weight_bits':   ['--visual-encoder-block-weight-bits', 'vit_weight_bits_', ALL_WEIGHT_BITS],
 }
 
+# ----------Q-Former---------
 ALL_QFORMER_LAYERS = [i for i in range(12)]
 QFORMER_BLOCK_MODS = ['query', 'key', 'value', 'dense']   # NOTE: 'dense' refers to output linear layer for BertLayer
 QFORMER_BLOCK_ATTENTION_MODS = ['query', 'key', 'value']
@@ -145,7 +177,6 @@ QFORMER_BLOCK_OUTPUT_MODS = ['dense']
 QFORMER_BLOCK_FF_MODS = ['intermediate', 'output']
 QFORMER_CLS_MODS = ['transform', 'decoder']
 OUTPUT_MODS = ['vision_proj', 'text_proj', 'itm_head']
-
 
 QFORMER_OPTIONS = {}
 # QFORMER_OPTIONS = {
@@ -183,6 +214,9 @@ QFORMER_OPTIONS = {}
 
 params = {
     'cfg-path': ['--cfg-path', 'none', ['ret_flickr_eval.yaml']],              # set BLIP-2 model + task
+    'weight_bits': [['--visual-encoder-block-weight-bits'],
+                    'weight_bits_',
+                    ALL_WEIGHT_BITS]
 }
 
 params = {**params, **VIT_OPTIONS, **QFORMER_OPTIONS}
@@ -192,34 +226,59 @@ params = {**params, **VIT_OPTIONS, **QFORMER_OPTIONS}
 
 class Argument(object):
 
-    def __init__(self, name, cmd_line, string_id, val):
+    def __init__(self, name, cmd_line, string_id, val, multiarg=False):
+        
         self.name = name
         self.val = val
-        if isinstance(val,list):
-            if len(val) == 0:
-
-                if isinstance(cmd_line, list):
-                    self.cmd_string = ''
-                    for cur_line in cmd_line:
-                        self.cmd_string += ' '+cur_line+' []'
-                else:
-                    self.cmd_string = ' '+cmd_line+' []'
-            else:
-                if isinstance(cmd_line, list):
-                    self.cmd_string = ''
-                    for cur_line in cmd_line:
-                        self.cmd_string += ' '+cur_line+' '+','.join([str(e) for e in val])
-                else:
-                    self.cmd_string = ' '+cmd_line+' '+','.join([str(e) for e in val])
-        else:
-
+        
+        # support for assigning groups of args
+        if isinstance(val, tuple):
+            
+            assert len(val) == len(cmd_line)
+            
+            # expecting val to be a tuple, where each arg of tuple is set to each each cli argument in cmd_line
             if isinstance(cmd_line, list):
                 self.cmd_string = ''
-                for cur_line in cmd_line:
-                    self.cmd_string += ' '+cur_line+' '+str(val)
+                for cur_line,arg_val in zip(cmd_line, val):
+                    
+                    # False values --> skip argument
+                    if arg_val == False:
+                        continue
+                    if isinstance(arg_val,list):
+                        self.cmd_string += ' ' + cur_line+' '+','.join([str(e) for e in arg_val])
+                    else:
+                        self.cmd_string += ' ' + cur_line+' '+ str(arg_val)
             else:
-                self.cmd_string = ' '+cmd_line+' '+str(val)
+                raise Exception('cmd_line must be list')
+            
+        else:
+            if isinstance(val,list):
+                if len(val) == 0:
+
+                    if isinstance(cmd_line, list):
+                        self.cmd_string = ''
+                        for cur_line in cmd_line:
+                            self.cmd_string += ' '+cur_line+' []'
+                    else:
+                        self.cmd_string = ' '+cmd_line+' []'
+                else:
+                    if isinstance(cmd_line, list):
+                        self.cmd_string = ''
+                        for cur_line in cmd_line:
+                            self.cmd_string += ' '+cur_line+' '+','.join([str(e) for e in val])
+                    else:
+                        self.cmd_string = ' '+cmd_line+' '+','.join([str(e) for e in val])
+            else:
+
+                if isinstance(cmd_line, list):
+                    self.cmd_string = ''
+                    for cur_line in cmd_line:
+                        self.cmd_string += ' '+cur_line+' '+str(val)
+                else:
+                    self.cmd_string = ' '+cmd_line+' '+str(val)
+                    
         if isinstance(val,bool):
+            
             if not val:
                 self.job_string = ''
                 self.cmd_string = ''
@@ -237,6 +296,7 @@ class Argument(object):
             self.job_string = '_'+string_id+str(val)
         if string_id == 'none':
             self.job_string = ''
+        
 
     def copy(self):
         new_arg = Argument(self.name, cmd_line='', string_id='', val=self.val)

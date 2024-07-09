@@ -44,7 +44,7 @@ def args_parser():
     parser.add_argument('--visual-encoder-block-weight-bits',
                         required=False,
                         type=int,
-                        choices=[i for i in range(1,9)],
+                        # choices=[i for i in range(1,9)],
                         default=None,
                         help = 'weight bits for visual-encoder blocks')
     
@@ -70,7 +70,7 @@ def args_parser():
                         required=False,
                         type=int,
                         default=None,
-                        choices=[i for i in range(1,9)],
+                        # choices=[i for i in range(1,9)],
                         help='weight bits for Q-Former self attention modules')
     
     # cross attention options
@@ -179,9 +179,8 @@ def args_parser():
     return parser
 
 def validate_args(args):
-    return
-    args_dict = vars(args)
-    
+    pass
+
      # TODO: ensure groups of settings are all defined, either all None or all defined
     # if None in [args_dict['visual_encoder_block_modules'],
     #             args_dict['visual_encoder_block_indices'], 
@@ -196,7 +195,7 @@ def parse_args():
     parser = args_parser()
     
     args = parser.parse_args()
-    validate_args(args)
+    args = validate_args(args)
     
     # if 'LOCAL_RANK' not in os.environ:
     #     os.environ['LOCAL_RANK'] = str(args.local_rank)

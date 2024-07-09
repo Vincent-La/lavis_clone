@@ -1,4 +1,4 @@
-python flickr_multi_sbatch.py --env vit_small_batch \
+python flickr_multi_sbatch.py --env test \
                               --nhrs 8 \
                               --qos scav \
                               --partition nexus \

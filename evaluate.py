@@ -68,7 +68,7 @@ def main():
     datasets = task.build_datasets(cfg)
     model = task.build_model(cfg)
 
-    # APPLY QUANTIZATION CONFIG
+    # APPLY QUANTIZATION CONFIG 
     quantize(model, args)
     print(model)
     
