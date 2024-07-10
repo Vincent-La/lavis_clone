@@ -310,6 +310,8 @@ class Argument(object):
                 self.cmd_string = ' '+cmd_line+' '
         elif isinstance(val,list):
             self.job_string = '_'+string_id+'_'.join([str(v) for v in val])
+        elif isinstance(val, tuple):
+            self.job_string = ''
         else:
             self.job_string = '_'+string_id+str(val)
         if string_id == 'none':
@@ -323,7 +325,7 @@ class Argument(object):
         new_arg.val = self.val
          
         return new_arg
-            
+
 
 os.makedirs(f'{args.base_dir}/{args.output_dirname}/{args.env}',exist_ok=True)
 n_jobs = 0

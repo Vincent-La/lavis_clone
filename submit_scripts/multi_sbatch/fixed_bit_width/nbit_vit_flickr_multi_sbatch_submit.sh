@@ -7,6 +7,5 @@ python nbit_vit_flickr_multi_sbatch.py --env nbit_vit \
                                        --mem 128 \
                                        --output-dirname slurm_files \
                                        --filename submit.sh \
-                                       --dryrun
 
 # NOTE: set base-dir to repo top-level dir in nbit_flickr_multi_sbatch.py

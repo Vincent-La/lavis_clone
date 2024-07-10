@@ -253,6 +253,8 @@ params = {**params, **VIT_OPTIONS, **QFORMER_OPTIONS}
 
 #######################################################################
 
+#######################################################################
+
 class Argument(object):
 
     def __init__(self, name, cmd_line, string_id, val, multiarg=False):
@@ -321,6 +323,8 @@ class Argument(object):
                 self.cmd_string = ' '+cmd_line+' '
         elif isinstance(val,list):
             self.job_string = '_'+string_id+'_'.join([str(v) for v in val])
+        elif isinstance(val, tuple):
+            self.job_string = ''
         else:
             self.job_string = '_'+string_id+str(val)
         if string_id == 'none':
