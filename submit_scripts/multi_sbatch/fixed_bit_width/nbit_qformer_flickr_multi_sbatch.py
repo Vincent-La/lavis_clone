@@ -183,7 +183,9 @@ QFORMER_BLOCK_MODS = ['query', 'key', 'value', 'dense']   # NOTE: 'dense' refers
 QFORMER_BLOCK_ATTENTION_MODS = ['query', 'key', 'value']
 QFORMER_BLOCK_OUTPUT_MODS = ['dense']
 
-QFORMER_BLOCK_FF_MODS = ['intermediate', 'output']
+QFORMER_BLOCK_TEXT_FF_MODS = ['intermediate', 'output']
+QFORMER_BLOCK_IMG_FF_MODS = ['intermediate_query', 'output_query']
+
 QFORMER_CLS_MODS = ['transform', 'decoder']
 OUTPUT_MODS = ['vision_proj', 'text_proj', 'itm_head']
 
@@ -209,11 +211,11 @@ QFORMER_OPTIONS = {
 #     'qformer_cross_attention_weight_bits': ['--qformer-cross-attention-weight-bits', 'qformer_CA_weight_bits_', ALL_WEIGHT_BITS],
     
     # text feed-forward (per-block)
-    'qformer_text_ff_mods':                ['--qformer-text-ff-modules', 'qformer_text_ff_mods_', [QFORMER_BLOCK_FF_MODS, False]],
+    'qformer_text_ff_mods':                ['--qformer-text-ff-modules', 'qformer_text_ff_mods_', [QFORMER_BLOCK_TEXT_FF_MODS, False]],
     # 'qformer_text_ff_weight_bits':         ['--qformer-text-ff-weight-bits', 'qformer_text_ff_weight_bits_', ALL_WEIGHT_BITS],
     
     # img feed-forward (per-block)
-    'qformer_img_ff_mods':                 ['--qformer-img-ff-modules', 'qformer_img_ff_mods_', [QFORMER_BLOCK_FF_MODS, False]],
+    'qformer_img_ff_mods':                 ['--qformer-img-ff-modules', 'qformer_img_ff_mods_', [QFORMER_BLOCK_IMG_FF_MODS, False]],
     # 'qformer_img_ff_weight_bits':          ['--qformer-img-ff-weight-bits', 'qformer_img_ff_weight_bits_', ALL_WEIGHT_BITS],
      
 #     # classification (cls) head 
