@@ -179,7 +179,7 @@ def args_parser():
     return parser
 
 def validate_args(args):
-    pass
+    return args
 
      # TODO: ensure groups of settings are all defined, either all None or all defined
     # if None in [args_dict['visual_encoder_block_modules'],
