@@ -82,7 +82,7 @@ def quantize(model, args):
         
        
        # text sub-module feed forward
-        if args['qformer_img_ff_modules']:
+        if args['qformer_text_ff_modules']:
             quantize_blocks(qformer_layers,
                             args['qformer_text_ff_modules'],
                             ['dense'],
