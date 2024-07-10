@@ -109,7 +109,11 @@ class NBitLinearDynamic(nn.Linear):
         b = self.bias
 
         # STE (Straight-through estimator) trick using detach, not really necessary for just PTQ inference
-        x_quant = x + (quant(x, self.activation_bits) - x).detach()
+        if self.activation_bits == 32:
+            x_quant = x
+        else:
+            x_quant = x + (quant(x, self.activation_bits) - x).detach()
+        
         w_quant = w + (quant(w, self.weight_bits) - w).detach()
         
         # quantize bias term if present
